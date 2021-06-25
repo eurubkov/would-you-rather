@@ -3,6 +3,7 @@ import LoginPage from "./components/LoginPage";
 import { connect } from "react-redux";
 import React, {useEffect} from "react";
 import { handleInitialData } from "./actions/shared";
+import AddQuestion from "./components/AddQuestion";
 
 function App(props) {
   
@@ -11,7 +12,7 @@ function App(props) {
   );
   return (
     <div>
-      <LoginPage />
+      <AddQuestion />
     </div>
   );
 }
