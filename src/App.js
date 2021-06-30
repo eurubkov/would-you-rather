@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import React, {useEffect} from "react";
 import { handleInitialData } from "./actions/shared";
 import AddQuestion from "./components/AddQuestion";
+import UnansweredQuestion from "./components/UnansweredQuestion";
 
 function App(props) {
   
@@ -12,7 +13,7 @@ function App(props) {
   );
   return (
     <div>
-      <AddQuestion />
+      <UnansweredQuestion id={"8xf0y6ziyjabvozdd253nd"} />
     </div>
   );
 }
