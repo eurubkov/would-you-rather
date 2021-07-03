@@ -5,6 +5,7 @@ import React, {useEffect} from "react";
 import { handleInitialData } from "./actions/shared";
 import AddQuestion from "./components/AddQuestion";
 import UnansweredQuestion from "./components/UnansweredQuestion";
+import AnsweredQuestion from "./components/AnsweredQuestion";
 
 function App(props) {
   
@@ -13,7 +14,7 @@ function App(props) {
   );
   return (
     <div>
-      <UnansweredQuestion id={"8xf0y6ziyjabvozdd253nd"} />
+      <AnsweredQuestion id={"xj352vofupe1dqz9emx13r"} />
     </div>
   );
 }
