@@ -8,7 +8,6 @@ const UnansweredQuestion = ({ dispatch, authedUser, question }) => {
   }
   const { optionOne, optionTwo, author, id } = question;
   authedUser = "johndoe";
-  console.log(id);
   const handleAnswer = (e, option) => {
     e.preventDefault();
     dispatch(handleAddAnswer(authedUser, id, option));
