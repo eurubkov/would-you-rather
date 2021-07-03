@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import { handleAddQuestion } from "../actions/questions";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 const AddQuestion = ({ dispatch, authedUser }) => {
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
+  const [questionAdded, setQuestionAdded] = useState(false);
   authedUser = "sarahedo";
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(handleAddQuestion(option1, option2, authedUser));
+    setQuestionAdded(true);
   };
+  if (questionAdded) {
+    return <Redirect to="/" />;
+  }
   return (
     <>
       <h3>Would You Rather</h3>
