@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { setAuthedUser } from "../actions/authedUser";
+import { Redirect } from "react-router-dom";
 
-const LoginPage = ({ users, dispatch }) => {
+const LoginPage = ({ authedUser, users, dispatch }) => {
   const [selectedUser, setSelectedUser] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
@@ -10,7 +11,8 @@ const LoginPage = ({ users, dispatch }) => {
   };
 
   const handleChange = (e) => setSelectedUser(e.target.value);
-
+  if (authedUser) return <Redirect to="/" />;
+  else 
   return (
     <form onSubmit={handleLogin}>
       <select value={selectedUser} onChange={handleChange}>
@@ -26,8 +28,8 @@ const LoginPage = ({ users, dispatch }) => {
   );
 };
 
-const mapStateToProps = ({ users }) => {
-  return { users };
+const mapStateToProps = ({ users, authedUser }) => {
+  return { users, authedUser };
 };
 
 export default connect(mapStateToProps)(LoginPage);
