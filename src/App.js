@@ -34,7 +34,12 @@ function App(props) {
             props.authedUser ? <AddQuestion /> : <Redirect to="/login" />
           }
         />
-        <Route path="/leaderboard" component={Leaderboard} />
+        <Route
+          path="/leaderboard"
+          render={() =>
+            props.authedUser ? <Leaderboard /> : <Redirect to="/login" />
+          }
+        />
       </Fragment>
     </Router>
   );

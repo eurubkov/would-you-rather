@@ -1,8 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+import { logoutAuthedUser } from "../actions/authedUser";
 
 import { NavLink } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ dispatch }) => {
+  const onLogout = () => {
+    dispatch(logoutAuthedUser());
+  };
   return (
     <nav>
       <ul>
@@ -17,9 +22,12 @@ const NavBar = () => {
         <li>
           <NavLink to="/leaderboard">Leaderboard</NavLink>
         </li>
+        <li>
+          <button onClick={onLogout}>Logout</button>
+        </li>
       </ul>
     </nav>
   );
 };
 
-export default NavBar;
+export default connect()(NavBar);
