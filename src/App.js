@@ -10,6 +10,7 @@ import QuestionsList from "./components/QuestionsList";
 import NavBar from "./components/Navbar";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import Leaderboard from "./components/Leaderboard";
+import HomePage from "./components/HomePage";
 
 function App(props) {
   
@@ -24,7 +25,7 @@ function App(props) {
           path="/"
           exact
           render={() =>
-            props.authedUser ? <QuestionsList /> : <Redirect to="/login" />
+            props.authedUser ? <HomePage /> : <Redirect to="/login" />
           }
         />
         <Route path="/login" component={LoginPage} />
