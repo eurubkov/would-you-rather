@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import AnsweredQuestion from "./AnsweredQuestion";
 import UnansweredQuestion from "./UnansweredQuestion";
+import { Button } from "@material-ui/core";
 
 const QuestionsList = ({ authedUserData, questions }) => {
   const [viewingAnswered, setViewingAnswered] = useState(false);
@@ -27,10 +28,19 @@ const QuestionsList = ({ authedUserData, questions }) => {
   };
   return (
     <div>
-      <h1>Questions List</h1>
-      <button onClick={toogleViewingAnswered}>
+      <h1 style={{ textAlign: "center" }}>Questions List</h1>
+      <Button
+         variant="outlined"
+        color="primary"
+        style={{
+          display: "block",
+          margin: "auto",
+        }}
+        onClick={toogleViewingAnswered}
+      >
         {viewingAnswered ? "View Unanswered" : "View Answered"}
-      </button>
+      </Button>
+      <h1 style={{ textAlign: "center" }}>Would You Rather?</h1>
       {viewingAnswered &&
         answeredQuestions.map((question) => (
           <AnsweredQuestion key={question.id} id={question.id} />
