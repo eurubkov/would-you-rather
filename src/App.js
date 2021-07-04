@@ -9,6 +9,7 @@ import AnsweredQuestion from "./components/AnsweredQuestion";
 import QuestionsList from "./components/QuestionsList";
 import NavBar from "./components/Navbar";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
+import Leaderboard from "./components/Leaderboard";
 
 function App(props) {
   
@@ -33,6 +34,7 @@ function App(props) {
             props.authedUser ? <AddQuestion /> : <Redirect to="/login" />
           }
         />
+        <Route path="/leaderboard" component={Leaderboard} />
       </Fragment>
     </Router>
   );

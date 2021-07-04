@@ -33,11 +33,11 @@ const QuestionsList = ({ authedUserData, questions }) => {
       </button>
       {viewingAnswered &&
         answeredQuestions.map((question) => (
-          <AnsweredQuestion id={question.id} />
+          <AnsweredQuestion key={question.id} id={question.id} />
         ))}
       {!viewingAnswered &&
         unansweredQuestions.map((question) => (
-          <UnansweredQuestion id={question.id} />
+          <UnansweredQuestion key={question.id} id={question.id} />
         ))}
     </div>
   );
