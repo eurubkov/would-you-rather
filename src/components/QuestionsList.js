@@ -8,7 +8,10 @@ const QuestionsList = ({ authedUserData, questions }) => {
   const [viewingAnswered, setViewingAnswered] = useState(false);
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [unansweredQuestions, setUnansweredQuestions] = useState([]);
-
+  console.log(questions);
+  console.log(answeredQuestions);
+  console.log(unansweredQuestions);
+  console.log(authedUserData);
   useEffect(() => {
     let answered = [];
     let unanswered = [];
@@ -54,7 +57,6 @@ const QuestionsList = ({ authedUserData, questions }) => {
 };
 
 const mapStateToProps = ({ authedUser, users, questions }) => {
-  authedUser = "johndoe";
   const authedUserData = users[authedUser];
   return { authedUserData: authedUserData ? authedUserData : null, questions };
 };

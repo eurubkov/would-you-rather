@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { handleAddAnswer } from "../actions/questions";
 import { makeStyles } from "@material-ui/core/styles";
 import QuestionCard from "./QuestionCard";
+import Button from "@material-ui/core/Button";
+import { withRouter, Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -22,25 +23,28 @@ const UnansweredQuestion = ({ dispatch, authedUser, question }) => {
     return <p>This question doesn't exist.</p>;
   }
   const { optionOne, optionTwo, author, id } = question;
-  const handleAnswer = (e, option) => {
-    e.preventDefault();
-    dispatch(handleAddAnswer(authedUser, id, option));
-  };
 
   return (
     <>
+      <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
       <div className={classes.container}>
         <QuestionCard
-          onClick={(e) => handleAnswer(e, "optionOne")}
           questionText={optionOne.text}
         />
         <h1 style={{ marginLeft: "10px", marginRight: "10px" }}>OR</h1>
         <QuestionCard
-          onClick={(e) => handleAnswer(e, "optionOne")}
           questionText={optionTwo.text}
         />
       </div>
-      <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
+      <Link to={`/questions/${id}`}>
+        <Button
+          style={{ display: "block", margin: "auto" }}
+          variant="contained"
+          color="primary"
+        >
+          Answer
+        </Button>
+      </Link>
     </>
   );
 };
@@ -50,4 +54,4 @@ const mapStateToProps = ({ authedUser, questions }, { id }) => {
   return { authedUser, question: question ? question : null };
 };
 
-export default connect(mapStateToProps)(UnansweredQuestion);
+export default withRouter(connect(mapStateToProps)(UnansweredQuestion));

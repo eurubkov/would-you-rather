@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import React, { useEffect, Fragment } from "react";
 import { handleInitialData } from "./actions/shared";
 import AddQuestion from "./components/AddQuestion";
-import UnansweredQuestion from "./components/UnansweredQuestion";
-import AnsweredQuestion from "./components/AnsweredQuestion";
-import QuestionsList from "./components/QuestionsList";
+import UnansweredQuestionView from "./components/UnansweredQuestionView";
 import NavBar from "./components/Navbar";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import Leaderboard from "./components/Leaderboard";
@@ -41,6 +39,7 @@ function App(props) {
             props.authedUser ? <Leaderboard /> : <Redirect to="/login" />
           }
         />
+        <Route path="/questions/:id" component={UnansweredQuestionView} />
       </Fragment>
     </Router>
   );
