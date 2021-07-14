@@ -28,13 +28,9 @@ const UnansweredQuestion = ({ dispatch, authedUser, question }) => {
     <>
       <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
       <div className={classes.container}>
-        <QuestionCard
-          questionText={optionOne.text}
-        />
+        <QuestionCard questionText={optionOne.text} />
         <h1 style={{ marginLeft: "10px", marginRight: "10px" }}>OR</h1>
-        <QuestionCard
-          questionText={optionTwo.text}
-        />
+        <QuestionCard questionText={optionTwo.text} />
       </div>
       <Link to={`/questions/${id}`}>
         <Button

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { handleAddAnswer } from "../actions/questions";
 import QuestionCard from "./QuestionCard";
+import AnsweredQuestion from "./AnsweredQuestion";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
@@ -19,20 +20,28 @@ const useStyles = makeStyles({
   },
 });
 
-const UnansweredQuestionView = ({ dispatch }) => {
+const QuestionView = ({ dispatch }) => {
   const classes = useStyles();
   const { id } = useParams();
   const question = useSelector((state) => state.questions[id]);
   const authedUser = useSelector((state) => state.authedUser);
-  if (question === null) {
-    return <p>This question doesn't exist.</p>;
-  }
   const { optionOne, optionTwo, author } = question;
+  const [answered, setAnswered] = useState(
+    question.author in question.optionOne.votes ||
+      question.author in question.optionTwo.votes
+  );
   const handleAnswer = (e, option) => {
     e.preventDefault();
     dispatch(handleAddAnswer(authedUser, id, option));
+    setAnswered(true);
   };
 
+  if (question === null) {
+    return <p>This question doesn't exist.</p>;
+  }
+  if (answered) {
+    return <AnsweredQuestion id={id} />;
+  }
   return (
     <>
       <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
@@ -61,4 +70,4 @@ const UnansweredQuestionView = ({ dispatch }) => {
   );
 };
 
-export default connect()(UnansweredQuestionView);
+export default connect()(QuestionView);

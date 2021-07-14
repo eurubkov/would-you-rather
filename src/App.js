@@ -4,17 +4,14 @@ import { connect } from "react-redux";
 import React, { useEffect, Fragment } from "react";
 import { handleInitialData } from "./actions/shared";
 import AddQuestion from "./components/AddQuestion";
-import UnansweredQuestionView from "./components/UnansweredQuestionView";
+import QuestionView from "./components/QuestionView";
 import NavBar from "./components/Navbar";
 import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import Leaderboard from "./components/Leaderboard";
 import HomePage from "./components/HomePage";
 
 function App(props) {
-  
-  useEffect(() =>
-    props.dispatch(handleInitialData())
-  );
+  useEffect(() => props.dispatch(handleInitialData()));
   return (
     <Router>
       <Fragment>
@@ -39,7 +36,7 @@ function App(props) {
             props.authedUser ? <Leaderboard /> : <Redirect to="/login" />
           }
         />
-        <Route path="/questions/:id" component={UnansweredQuestionView} />
+        <Route path="/questions/:id" component={QuestionView} />
       </Fragment>
     </Router>
   );
