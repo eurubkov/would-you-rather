@@ -70,13 +70,17 @@ const QuestionsList = ({ authedUserData, questions }) => {
         </>
       )}
       {viewingAnswered &&
-        answeredQuestions.map((question) => (
-          <AnsweredQuestion key={question.id} id={question.id} />
-        ))}
+        answeredQuestions
+          .sort((a, b) => b.timestamp - a.timestamp)
+          .map((question) => (
+            <AnsweredQuestion key={question.id} id={question.id} />
+          ))}
       {!viewingAnswered &&
-        unansweredQuestions.map((question) => (
-          <UnansweredQuestion key={question.id} id={question.id} />
-        ))}
+        unansweredQuestions
+          .sort((a, b) => b.timestamp - a.timestamp)
+          .map((question) => (
+            <UnansweredQuestion key={question.id} id={question.id} />
+          ))}
     </div>
   );
 };
