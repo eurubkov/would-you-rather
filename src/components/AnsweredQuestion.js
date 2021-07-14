@@ -20,11 +20,14 @@ const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
   if (question === null) {
     return <p>This question doesn't exist.</p>;
   }
-  const { optionOne, optionTwo, author, id } = question;
-  authedUser = "johndoe";
+  const { optionOne, optionTwo, author } = question;
   const totalVotes = optionOne.votes.length + optionTwo.votes.length;
-  const optionOnePercentage = (optionOne.votes.length / totalVotes) * 100;
-  const optionTwoPercentage = (optionTwo.votes.length / totalVotes) * 100;
+  const optionOnePercentage = Math.round(
+    (optionOne.votes.length / totalVotes) * 100
+  );
+  const optionTwoPercentage = Math.round(
+    (optionTwo.votes.length / totalVotes) * 100
+  );
 
   return (
     <>

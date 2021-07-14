@@ -3,11 +3,13 @@ import { connect } from "react-redux";
 import AnsweredQuestion from "./AnsweredQuestion";
 import UnansweredQuestion from "./UnansweredQuestion";
 import { Button } from "@material-ui/core";
+import { Redirect } from "react-router-dom";
 
 const QuestionsList = ({ authedUserData, questions }) => {
   const [viewingAnswered, setViewingAnswered] = useState(false);
   const [answeredQuestions, setAnsweredQuestions] = useState([]);
   const [unansweredQuestions, setUnansweredQuestions] = useState([]);
+  const [addQuestion, setAddQuestion] = useState(false);
 
   useEffect(() => {
     let answered = [];
@@ -26,11 +28,20 @@ const QuestionsList = ({ authedUserData, questions }) => {
   const toogleViewingAnswered = () => {
     setViewingAnswered(!viewingAnswered);
   };
+
+  const redirectToAddQuestion = () => {
+    setAddQuestion(true);
+  };
+
+  if (addQuestion) {
+    return <Redirect to="/add" />;
+  }
+
   return (
     <div>
-      <h1 style={{ textAlign: "center" }}>Questions List</h1>
+      <h1 style={{ textAlign: "center" }}>Would You Rather?</h1>
       <Button
-         variant="outlined"
+        variant="outlined"
         color="primary"
         style={{
           display: "block",
@@ -40,7 +51,24 @@ const QuestionsList = ({ authedUserData, questions }) => {
       >
         {viewingAnswered ? "View Unanswered" : "View Answered"}
       </Button>
-      <h1 style={{ textAlign: "center" }}>Would You Rather?</h1>
+      {!viewingAnswered && unansweredQuestions.length === 0 && (
+        <>
+          <h3 style={{ textAlign: "center" }}>
+            Looks like you answered all the questions!
+          </h3>
+          <Button
+            variant="outlined"
+            color="primary"
+            style={{
+              display: "block",
+              margin: "auto",
+            }}
+            onClick={redirectToAddQuestion}
+          >
+            <h4>Create a new one?</h4>
+          </Button>
+        </>
+      )}
       {viewingAnswered &&
         answeredQuestions.map((question) => (
           <AnsweredQuestion key={question.id} id={question.id} />
@@ -54,7 +82,6 @@ const QuestionsList = ({ authedUserData, questions }) => {
 };
 
 const mapStateToProps = ({ authedUser, users, questions }) => {
-  authedUser = "johndoe";
   const authedUserData = users[authedUser];
   return { authedUserData: authedUserData ? authedUserData : null, questions };
 };
