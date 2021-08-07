@@ -7,6 +7,7 @@ import AnsweredQuestion from "./AnsweredQuestion";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
+import { withRouter, Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -40,7 +41,20 @@ const QuestionView = ({ dispatch }) => {
     return <p>This question doesn't exist.</p>;
   }
   if (answered) {
-    return <AnsweredQuestion id={id} />;
+    return (
+      <>
+        <AnsweredQuestion id={id} />{" "}
+        <Link to={`/`}>
+          <Button
+            style={{ display: "block", margin: "auto" }}
+            variant="contained"
+            color="secondary"
+          >
+            Go Back
+          </Button>
+        </Link>
+      </>
+    );
   }
   return (
     <>
@@ -66,8 +80,17 @@ const QuestionView = ({ dispatch }) => {
           </Button>
         </QuestionCard>
       </div>
+      <Link to={`/`}>
+        <Button
+          style={{ display: "block", margin: "auto" }}
+          variant="contained"
+          color="secondary"
+        >
+          Go Back
+        </Button>
+      </Link>
     </>
   );
 };
 
-export default connect()(QuestionView);
+export default withRouter(connect()(QuestionView));
