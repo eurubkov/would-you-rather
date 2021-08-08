@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import QuestionCard from "./QuestionCard";
 import Button from "@material-ui/core/Button";
 import { withRouter, Link } from "react-router-dom";
-import Avatar from "@material-ui/core/Avatar";
+import AuthorSignature from "./AuthorSignature";
 
 const useStyles = makeStyles({
   root: {
@@ -20,12 +20,10 @@ const useStyles = makeStyles({
 
 const UnansweredQuestion = ({ dispatch, authedUser, question, users }) => {
   const classes = useStyles();
-  console.log(authedUser);
   if (question === null) {
     return <p>This question doesn't exist.</p>;
   }
   const { optionOne, optionTwo, author, id } = question;
-  const avatarURL = users[author].avatarURL;
 
   return (
     <>
@@ -43,16 +41,7 @@ const UnansweredQuestion = ({ dispatch, authedUser, question, users }) => {
           Answer
         </Button>
       </Link>
-      <div
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-        }}
-      >
-        <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
-        <Avatar src={avatarURL} alt="user avatar" />
-      </div>
+      <AuthorSignature author={author} />
     </>
   );
 };

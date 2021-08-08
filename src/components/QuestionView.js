@@ -5,7 +5,7 @@ import AnsweredQuestion from "./AnsweredQuestion";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import Avatar from "@material-ui/core/Avatar";
+import AuthorSignature from "./AuthorSignature";
 
 const useStyles = makeStyles({
   root: {
@@ -25,7 +25,6 @@ const QuestionView = ({ dispatch, users, question, authedUser }) => {
     return <p>This question doesn't exist.</p>;
   }
   const { optionOne, optionTwo, author } = question;
-  const avatarURL = users[author].avatarURL;
   const handleAnswer = (e, option) => {
     e.preventDefault();
     dispatch(handleAddAnswer(authedUser, question.id, option));
@@ -42,16 +41,6 @@ const QuestionView = ({ dispatch, users, question, authedUser }) => {
     return (
       <>
         <AnsweredQuestion id={question.id} />
-        <div
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
-          <Avatar src={avatarURL} alt="user avatar" />
-        </div>
       </>
     );
   }
@@ -78,16 +67,7 @@ const QuestionView = ({ dispatch, users, question, authedUser }) => {
           </Button>
         </QuestionCard>
       </div>
-      <div
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          display: "flex",
-        }}
-      >
-        <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
-        <Avatar src={avatarURL} alt="user avatar" />
-      </div>
+      <AuthorSignature author={author} />
     </>
   );
 };

@@ -2,11 +2,12 @@ import { React } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AnsweredQuestionCard from "./AnsweredQuestionCard";
+import AuthorSignature from "./AuthorSignature";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: "250px",
-    minHeight: "200px"
+    minHeight: "200px",
   },
   container: {
     display: "flex",
@@ -20,7 +21,7 @@ const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
   if (question === null) {
     return <p>This question doesn't exist.</p>;
   }
-  const { optionOne, optionTwo } = question;
+  const { optionOne, optionTwo, author } = question;
   const totalVotes = optionOne.votes.length + optionTwo.votes.length;
   const optionOnePercentage = Math.round(
     (optionOne.votes.length / totalVotes) * 100
@@ -45,6 +46,7 @@ const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
           votesPercentage={optionTwoPercentage}
         />
       </div>
+      <AuthorSignature author={author} />
     </>
   );
 };
