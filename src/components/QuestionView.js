@@ -5,7 +5,6 @@ import AnsweredQuestion from "./AnsweredQuestion";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { withRouter, Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles({
@@ -35,10 +34,24 @@ const QuestionView = ({ dispatch, users, question, authedUser }) => {
   if (question === null) {
     return <p>This question doesn't exist.</p>;
   }
-  if (author in optionOne.votes || author in optionTwo.votes) {
+  const isAnswered =
+    optionOne.votes.includes(authedUser) ||
+    optionTwo.votes.includes(authedUser);
+
+  if (isAnswered) {
     return (
       <>
         <AnsweredQuestion id={question.id} />
+        <div
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+          }}
+        >
+          <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
+          <Avatar src={avatarURL} alt="user avatar" />
+        </div>
       </>
     );
   }
@@ -84,4 +97,4 @@ const mapStateToProps = ({ users, questions, authedUser }, { id }) => {
   return { users, question: question ? question : null, authedUser };
 };
 
-export default withRouter(connect(mapStateToProps)(QuestionView));
+export default connect(mapStateToProps)(QuestionView);

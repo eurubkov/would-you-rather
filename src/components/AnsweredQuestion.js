@@ -20,7 +20,7 @@ const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
   if (question === null) {
     return <p>This question doesn't exist.</p>;
   }
-  const { optionOne, optionTwo, author } = question;
+  const { optionOne, optionTwo } = question;
   const totalVotes = optionOne.votes.length + optionTwo.votes.length;
   const optionOnePercentage = Math.round(
     (optionOne.votes.length / totalVotes) * 100
@@ -32,16 +32,19 @@ const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
   return (
     <>
       <div className={classes.container}>
-        <AnsweredQuestionCard  questionText={optionOne.text}
-  votesCount={optionOne.votes.length}
-  votesPercentage={optionOnePercentage}/>
+        <AnsweredQuestionCard
+          questionText={optionOne.text}
+          votesCount={optionOne.votes.length}
+          votesPercentage={optionOnePercentage}
+        />
 
-        <h1 style={{ marginLeft: "10px", marginRight: "10px"  }}>OR</h1>
-        <AnsweredQuestionCard  questionText={optionTwo.text}
-  votesCount={optionTwo.votes.length}
-  votesPercentage={optionTwoPercentage}/>
+        <h1 style={{ marginLeft: "10px", marginRight: "10px" }}>OR</h1>
+        <AnsweredQuestionCard
+          questionText={optionTwo.text}
+          votesCount={optionTwo.votes.length}
+          votesPercentage={optionTwoPercentage}
+        />
       </div>
-      <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
     </>
   );
 };
