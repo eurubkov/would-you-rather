@@ -9,6 +9,7 @@ const QuestionPage = ({ questions }) => {
 
   return (
     <div>
+      <h1 style={{ textAlign: "center" }}>Would You Rather</h1>
       <QuestionView id={id} />
       <Link to={`/`}>
         <Button
