@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from "react";
 import { handleAddAnswer } from "../actions/questions";
 import QuestionCard from "./QuestionCard";
 import AnsweredQuestion from "./AnsweredQuestion";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
-import { withRouter, Link } from "react-router-dom";
+import AuthorSignature from "./AuthorSignature";
 
 const useStyles = makeStyles({
   root: {
@@ -21,44 +19,33 @@ const useStyles = makeStyles({
   },
 });
 
-const QuestionView = ({ dispatch }) => {
+const QuestionView = ({ dispatch, users, question, authedUser }) => {
   const classes = useStyles();
-  const { id } = useParams();
-  const question = useSelector((state) => state.questions[id]);
-  const authedUser = useSelector((state) => state.authedUser);
+  if (question === null) {
+    return <p>This question doesn't exist.</p>;
+  }
   const { optionOne, optionTwo, author } = question;
-  const [answered, setAnswered] = useState(
-    question.author in question.optionOne.votes ||
-      question.author in question.optionTwo.votes
-  );
   const handleAnswer = (e, option) => {
     e.preventDefault();
-    dispatch(handleAddAnswer(authedUser, id, option));
-    setAnswered(true);
+    dispatch(handleAddAnswer(authedUser, question.id, option));
   };
 
   if (question === null) {
     return <p>This question doesn't exist.</p>;
   }
-  if (answered) {
+  const isAnswered =
+    optionOne.votes.includes(authedUser) ||
+    optionTwo.votes.includes(authedUser);
+
+  if (isAnswered) {
     return (
       <>
-        <AnsweredQuestion id={id} />{" "}
-        <Link to={`/`}>
-          <Button
-            style={{ display: "block", margin: "auto" }}
-            variant="contained"
-            color="secondary"
-          >
-            Go Back
-          </Button>
-        </Link>
+        <AnsweredQuestion id={question.id} />
       </>
     );
   }
   return (
     <>
-      <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
       <div className={classes.container}>
         <QuestionCard questionText={optionOne.text}>
           <Button
@@ -80,17 +67,14 @@ const QuestionView = ({ dispatch }) => {
           </Button>
         </QuestionCard>
       </div>
-      <Link to={`/`}>
-        <Button
-          style={{ display: "block", margin: "auto" }}
-          variant="contained"
-          color="secondary"
-        >
-          Go Back
-        </Button>
-      </Link>
+      <AuthorSignature author={author} />
     </>
   );
 };
 
-export default withRouter(connect()(QuestionView));
+const mapStateToProps = ({ users, questions, authedUser }, { id }) => {
+  const question = questions[id];
+  return { users, question: question ? question : null, authedUser };
+};
+
+export default connect(mapStateToProps)(QuestionView);

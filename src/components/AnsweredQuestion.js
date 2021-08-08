@@ -2,11 +2,12 @@ import { React } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import AnsweredQuestionCard from "./AnsweredQuestionCard";
+import AuthorSignature from "./AuthorSignature";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: "250px",
-    minHeight: "200px"
+    minHeight: "200px",
   },
   container: {
     display: "flex",
@@ -32,16 +33,20 @@ const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
   return (
     <>
       <div className={classes.container}>
-        <AnsweredQuestionCard  questionText={optionOne.text}
-  votesCount={optionOne.votes.length}
-  votesPercentage={optionOnePercentage}/>
+        <AnsweredQuestionCard
+          questionText={optionOne.text}
+          votesCount={optionOne.votes.length}
+          votesPercentage={optionOnePercentage}
+        />
 
-        <h1 style={{ marginLeft: "10px", marginRight: "10px"  }}>OR</h1>
-        <AnsweredQuestionCard  questionText={optionTwo.text}
-  votesCount={optionTwo.votes.length}
-  votesPercentage={optionTwoPercentage}/>
+        <h1 style={{ marginLeft: "10px", marginRight: "10px" }}>OR</h1>
+        <AnsweredQuestionCard
+          questionText={optionTwo.text}
+          votesCount={optionTwo.votes.length}
+          votesPercentage={optionTwoPercentage}
+        />
       </div>
-      <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
+      <AuthorSignature author={author} />
     </>
   );
 };

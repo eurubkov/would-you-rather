@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import QuestionCard from "./QuestionCard";
 import Button from "@material-ui/core/Button";
 import { withRouter, Link } from "react-router-dom";
+import AuthorSignature from "./AuthorSignature";
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-const UnansweredQuestion = ({ dispatch, authedUser, question }) => {
+const UnansweredQuestion = ({ dispatch, authedUser, question, users }) => {
   const classes = useStyles();
   if (question === null) {
     return <p>This question doesn't exist.</p>;
@@ -26,7 +27,6 @@ const UnansweredQuestion = ({ dispatch, authedUser, question }) => {
 
   return (
     <>
-      <h6 style={{ textAlign: "center" }}>Question provided by {author}</h6>
       <div className={classes.container}>
         <QuestionCard questionText={optionOne.text} />
         <h1 style={{ marginLeft: "10px", marginRight: "10px" }}>OR</h1>
@@ -41,13 +41,18 @@ const UnansweredQuestion = ({ dispatch, authedUser, question }) => {
           Answer
         </Button>
       </Link>
+      <AuthorSignature author={author} />
     </>
   );
 };
 
-const mapStateToProps = ({ authedUser, questions }, { id }) => {
+const mapStateToProps = ({ authedUser, questions, users }, { id }) => {
   const question = questions[id];
-  return { authedUser, question: question ? question : null };
+  return {
+    authedUser,
+    question: question ? question : null,
+    users,
+  };
 };
 
 export default withRouter(connect(mapStateToProps)(UnansweredQuestion));
