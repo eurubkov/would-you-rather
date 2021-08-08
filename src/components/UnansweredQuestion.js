@@ -29,7 +29,6 @@ const UnansweredQuestion = ({ dispatch, authedUser, question, users }) => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Would You Rather</h1>
       <div className={classes.container}>
         <QuestionCard questionText={optionOne.text} />
         <h1 style={{ marginLeft: "10px", marginRight: "10px" }}>OR</h1>
