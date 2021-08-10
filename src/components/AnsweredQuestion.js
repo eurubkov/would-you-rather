@@ -1,6 +1,7 @@
 import { React } from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
+import Badge from "@material-ui/core/Badge";
 import AnsweredQuestionCard from "./AnsweredQuestionCard";
 import AuthorSignature from "./AuthorSignature";
 
@@ -29,22 +30,38 @@ const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
   const optionTwoPercentage = Math.round(
     (optionTwo.votes.length / totalVotes) * 100
   );
+  const userVotedOption1 = optionOne.votes.includes(authedUser);
+  const userVotedOption2 = optionTwo.votes.includes(authedUser);
 
   return (
     <>
       <div className={classes.container}>
-        <AnsweredQuestionCard
-          questionText={optionOne.text}
-          votesCount={optionOne.votes.length}
-          votesPercentage={optionOnePercentage}
-        />
+        <Badge
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          badgeContent={"Your vote!"}
+          invisible={!userVotedOption1}
+          color="primary"
+        >
+          <AnsweredQuestionCard
+            questionText={optionOne.text}
+            votesCount={optionOne.votes.length}
+            votesPercentage={optionOnePercentage}
+          />
+        </Badge>
 
         <h1 style={{ marginLeft: "10px", marginRight: "10px" }}>OR</h1>
-        <AnsweredQuestionCard
-          questionText={optionTwo.text}
-          votesCount={optionTwo.votes.length}
-          votesPercentage={optionTwoPercentage}
-        />
+        <Badge
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          badgeContent={"Your vote!"}
+          invisible={!userVotedOption2}
+          color="secondary"
+        >
+          <AnsweredQuestionCard
+            questionText={optionTwo.text}
+            votesCount={optionTwo.votes.length}
+            votesPercentage={optionTwoPercentage}
+          />
+        </Badge>
       </div>
       <AuthorSignature author={author} />
     </>
