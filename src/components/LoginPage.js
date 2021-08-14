@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const LoginPage = ({ dispatch, authedUser, users, location }) => {
   const classes = useStyles();
   const [selectedUser, setSelectedUser] = useState("");
-  const { from } = location.state;
+  const { from } = location?.state ?? "/";
   const handleLogin = (e) => {
     e.preventDefault();
     dispatch(setAuthedUser(selectedUser));
