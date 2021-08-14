@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
+const AnsweredQuestion = ({ authedUser, question }) => {
   const classes = useStyles();
   const { optionOne, optionTwo, author } = question;
   const totalVotes = optionOne.votes.length + optionTwo.votes.length;

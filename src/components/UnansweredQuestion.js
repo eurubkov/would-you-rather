@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-const UnansweredQuestion = ({ dispatch, authedUser, question, users }) => {
+const UnansweredQuestion = ({ question }) => {
   const classes = useStyles();
   const { optionOne, optionTwo, author, id } = question;
 
@@ -43,12 +43,10 @@ const UnansweredQuestion = ({ dispatch, authedUser, question, users }) => {
   );
 };
 
-const mapStateToProps = ({ authedUser, questions, users }, { id }) => {
+const mapStateToProps = ({ questions }, { id }) => {
   const question = questions[id];
   return {
-    authedUser,
     question: question ? question : null,
-    users,
   };
 };
 

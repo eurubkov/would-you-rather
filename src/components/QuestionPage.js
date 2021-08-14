@@ -1,10 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
-import { useParams, withRouter, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import QuestionView from "./QuestionView";
 import Button from "@material-ui/core/Button";
 
-const QuestionPage = ({ questions }) => {
+const QuestionPage = () => {
   const { id } = useParams();
 
   return (
@@ -24,4 +23,4 @@ const QuestionPage = ({ questions }) => {
   );
 };
 
-export default withRouter(connect()(QuestionPage));
+export default QuestionPage;

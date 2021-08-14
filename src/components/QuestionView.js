@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const QuestionView = ({ dispatch, users, question, authedUser }) => {
+const QuestionView = ({ dispatch, question, authedUser }) => {
   const classes = useStyles();
   if (question === null) {
     return <NotFoundPage />;
@@ -70,9 +70,9 @@ const QuestionView = ({ dispatch, users, question, authedUser }) => {
   );
 };
 
-const mapStateToProps = ({ users, questions, authedUser }, { id }) => {
+const mapStateToProps = ({ questions, authedUser }, { id }) => {
   const question = questions[id];
-  return { users, question: question ? question : null, authedUser };
+  return { question: question ? question : null, authedUser };
 };
 
 export default connect(mapStateToProps)(QuestionView);
