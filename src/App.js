@@ -9,34 +9,57 @@ import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 import Leaderboard from "./components/Leaderboard";
 import HomePage from "./components/HomePage";
 import QuestionPage from "./components/QuestionPage";
+import { useLocation, Switch } from "react-router-dom";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App(props) {
   useEffect(() => props.dispatch(handleInitialData()));
+  const RedirectToLogin = () => {
+    const location = useLocation();
+    return (
+      <Redirect
+        to={{ pathname: "/login", state: { from: location.pathname } }}
+      />
+    );
+  };
+
   return (
     <Router>
       <Fragment>
         <NavBar />
-        <Route
-          path="/"
-          exact
-          render={() =>
-            props.authedUser ? <HomePage /> : <Redirect to="/login" />
-          }
-        />
-        <Route path="/login" component={LoginPage} />
-        <Route
-          path="/add"
-          render={() =>
-            props.authedUser ? <AddQuestion /> : <Redirect to="/login" />
-          }
-        />
-        <Route
-          path="/leaderboard"
-          render={() =>
-            props.authedUser ? <Leaderboard /> : <Redirect to="/login" />
-          }
-        />
-        <Route path="/questions/:id" component={QuestionPage} />
+        <Switch>
+          <Route
+            path="/"
+            exact
+            render={() =>
+              props.authedUser ? <HomePage /> : <RedirectToLogin />
+            }
+          />
+          <Route path="/login" component={LoginPage} />
+          <Route
+            path="/add"
+            render={() =>
+              props.authedUser ? <AddQuestion /> : <RedirectToLogin />
+            }
+          />
+          <Route
+            path="/leaderboard"
+            render={() =>
+              props.authedUser ? <Leaderboard /> : <RedirectToLogin />
+            }
+          />
+          <Route
+            path="/questions/:id"
+            render={() =>
+              props.authedUser ? <QuestionPage /> : <RedirectToLogin />
+            }
+          />
+          <Route
+            render={() =>
+              props.authedUser ? <NotFoundPage /> : <RedirectToLogin />
+            }
+          />
+        </Switch>
       </Fragment>
     </Router>
   );
