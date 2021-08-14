@@ -19,9 +19,6 @@ const useStyles = makeStyles({
 
 const AnsweredQuestion = ({ dispatch, authedUser, question }) => {
   const classes = useStyles();
-  if (question === null) {
-    return <p>This question doesn't exist.</p>;
-  }
   const { optionOne, optionTwo, author } = question;
   const totalVotes = optionOne.votes.length + optionTwo.votes.length;
   const optionOnePercentage = Math.round(

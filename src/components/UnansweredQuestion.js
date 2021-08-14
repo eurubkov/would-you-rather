@@ -20,9 +20,6 @@ const useStyles = makeStyles({
 
 const UnansweredQuestion = ({ dispatch, authedUser, question, users }) => {
   const classes = useStyles();
-  if (question === null) {
-    return <p>This question doesn't exist.</p>;
-  }
   const { optionOne, optionTwo, author, id } = question;
 
   return (

@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import AuthorSignature from "./AuthorSignature";
+import NotFoundPage from "./NotFoundPage";
 
 const useStyles = makeStyles({
   root: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
 const QuestionView = ({ dispatch, users, question, authedUser }) => {
   const classes = useStyles();
   if (question === null) {
-    return <p>This question doesn't exist.</p>;
+    return <NotFoundPage />;
   }
   const { optionOne, optionTwo, author } = question;
   const handleAnswer = (e, option) => {
@@ -30,9 +31,6 @@ const QuestionView = ({ dispatch, users, question, authedUser }) => {
     dispatch(handleAddAnswer(authedUser, question.id, option));
   };
 
-  if (question === null) {
-    return <p>This question doesn't exist.</p>;
-  }
   const isAnswered =
     optionOne.votes.includes(authedUser) ||
     optionTwo.votes.includes(authedUser);
