@@ -4,6 +4,7 @@ import { logoutAuthedUser } from "../actions/authedUser";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Button, Toolbar } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ dispatch }) => {
+const NavBar = ({ dispatch, authedUser, avatarURL }) => {
   const classes = useStyles();
   const onLogout = () => {
     dispatch(logoutAuthedUser());
@@ -32,13 +33,40 @@ const NavBar = ({ dispatch }) => {
           <Button component={NavLink} to="/leaderboard" color="inherit">
             Leaderboard
           </Button>
-          <Button color="inherit" onClick={onLogout}>
-            Logout
-          </Button>
+
+          {authedUser ? (
+            <Button color="inherit" onClick={onLogout}>
+              Logout
+            </Button>
+          ) : (
+            <></>
+          )}
+          {authedUser ? (
+            <div
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                display: "flex",
+                textAlign: "center",
+                right: "0px",
+                position: "absolute",
+              }}
+            >
+              Hello, {authedUser}!
+              <Avatar src={avatarURL} alt="user avatar" />
+            </div>
+          ) : (
+            <></>
+          )}
         </Toolbar>
       </AppBar>
     </div>
   );
 };
 
-export default connect()(NavBar);
+const mapStateToProps = ({ authedUser, users }) => {
+  const user = users[authedUser];
+  return { authedUser, avatarURL: user?.avatarURL };
+};
+
+export default connect(mapStateToProps)(NavBar);

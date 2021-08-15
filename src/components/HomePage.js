@@ -5,7 +5,6 @@ import QuestionsList from "./QuestionsList";
 const HomePage = ({ user }) => {
   return (
     <div>
-      <h6>Welcome, {user["name"]}</h6>
       <QuestionsList />
     </div>
   );
