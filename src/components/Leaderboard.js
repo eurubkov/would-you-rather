@@ -12,10 +12,10 @@ import Paper from "@material-ui/core/Paper";
 const Leaderboard = ({ users }) => {
   const sortedUsers = Object.keys(users)
     .map((userId) => {
-      users[userId]["totalQuestions"] =
-        users[userId]["questions"].length +
-        Object.keys(users[userId]["answers"]).length;
-      return users[userId];
+      const user = JSON.parse(JSON.stringify(users[userId]));
+      user["totalQuestions"] =
+        user["questions"].length + Object.keys(user["answers"]).length;
+      return user;
     })
     .sort((a, b) => b["totalQuestions"] - a["totalQuestions"]);
 
