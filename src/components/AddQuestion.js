@@ -34,7 +34,6 @@ const AddQuestion = ({ dispatch, authedUser }) => {
   const [option1, setOption1] = useState("");
   const [option2, setOption2] = useState("");
   const [questionAdded, setQuestionAdded] = useState(false);
-  authedUser = "sarahedo";
 
   const handleSubmit = (e) => {
     e.preventDefault();
